@@ -1,0 +1,7 @@
+name: "traceparent-plugin"
+version: "v0.0.1"
+type: "middleware"
+import: "traceparent-plugin"
+displayName: "Traceparent Plugin"
+summary: "A plugin for injecting traceparent headers"
+testData: {}
