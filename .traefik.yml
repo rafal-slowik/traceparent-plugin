@@ -1,9 +1,6 @@
-version: "v1.0.4"
 type: "middleware"
 import: "github.com/rafal-slowik/traceparent-plugin"
 displayName: "Traceparent Generator Plugin"
-summary: "A plugin for injecting traceparent headers"
-description: "Generates an otel traceparent header using specified header name as a trace-id and random span-id."
-author: "RAFAL SLOWIK"
+summary: "A plugin for injecting traceparent headers."
 testData:
   HeaderName: "X-Appgw-Trace-Id"
