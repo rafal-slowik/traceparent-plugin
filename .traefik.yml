@@ -1,5 +1,4 @@
-name: "traceparent-plugin"
-version: "v1.0.3"
+version: "v1.0.4"
 type: "middleware"
 import: "github.com/rafal-slowik/traceparent-plugin"
 displayName: "Traceparent Generator Plugin"
