@@ -1,7 +1,7 @@
 name: "traceparent-plugin"
 version: "v1.0.0"
 type: "middleware"
-import: "traceparent-plugin"
+import: "github.com/rafal-slowik/traceparent-plugin"
 displayName: "Traceparent Generator Plugin"
 summary: "A plugin for injecting traceparent headers"
 description: "Generates a otel traceparent header using Azure Application Gateway's transaction ID as trace-id and random span-id."
