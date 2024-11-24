@@ -12,7 +12,11 @@ func TestTraceparentPlugin(t *testing.T) {
 		rw.WriteHeader(http.StatusOK)
 	})
 
-	plugin, err := New(context.Background(), nextHandler, CreateConfig(), "traceparent-plugin")
+	config := &Config{
+		HeaderName: "X-Appgw-Trace-Id",
+	}
+
+	plugin, err := New(context.Background(), nextHandler, config, "traceparent-plugin")
 	if err != nil {
 		t.Fatalf("error creating TraceparentPlugin: %v", err)
 	}
@@ -45,6 +49,14 @@ func TestTraceparentPlugin(t *testing.T) {
 			},
 			expectedStatus: http.StatusOK,
 			expectedHeader: "00-1234567890abcdef1234567890abcdef-1234567890abcdef-01",
+		},
+		{
+			name: "X-Appgw-Trace-Id invalid. Needs to be 32 hex characters",
+			headers: map[string]string{
+				"X-Appgw-Trace-Id": "123456",
+			},
+			expectedStatus: http.StatusOK,
+			expectedHeader: "",
 		},
 	}
 

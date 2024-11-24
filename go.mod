@@ -1,3 +1,3 @@
-module github.com/rafal-slowik/traceparent-plugin
+module traceparent-plugin
 
 go 1.23.3
