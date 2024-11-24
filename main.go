@@ -61,8 +61,6 @@ func (p *TraceparentPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Request)
 			// Set the traceparent header.
 			traceparent := "00-" + transactionID + "-" + spanIDHex + "-01"
 			req.Header.Set("traceparent", traceparent)
-		} else {
-			log.Printf("[DEBUG] Invalid or missing transactionID: '%s' from header: '%s'", transactionID, p.header)
 		}
 	}
 	p.next.ServeHTTP(rw, req)

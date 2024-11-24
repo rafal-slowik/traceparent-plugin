@@ -18,7 +18,7 @@ services:
       - --providers.docker.exposedByDefault=false
       - --entrypoints.web.address=:80
       - --experimental.plugins.traceparent-plugin.moduleName=github.com/rafal-slowik/traceparent-plugin
-      - --experimental.plugins.traceparent-plugin.version=v0.0.2
+      - --experimental.plugins.traceparent-plugin.version=v0.0.3
     ports:
       - "80:80"
       - "8080:8080" # Traefik dashboard
