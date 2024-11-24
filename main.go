@@ -33,26 +33,22 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 func (p *TraceparentPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if req.Header.Get("traceparent") == "" {
 		transactionID := req.Header.Get("X-Appgw-Trace-Id")
-		if transactionID == "" {
-			// No transaction ID, nothing to do.
-			p.next.ServeHTTP(rw, req)
-			return
-		}
+		if transactionID != "" {
+			// Generate random 16-character span ID.
+			spanID := make([]byte, 8)
+			_, err := rand.Read(spanID)
+			if err != nil {
+				log.Printf("error generating span ID: %v", err)
+				p.next.ServeHTTP(rw, req)
+				return
+			}
+			spanIDHex := hex.EncodeToString(spanID)
 
-		// Generate random 16-character span ID.
-		spanID := make([]byte, 8)
-		_, err := rand.Read(spanID)
-		if err != nil {
-			log.Printf("error generating span ID: %v", err)
-			p.next.ServeHTTP(rw, req)
-			return
+			// Set the traceparent header.
+			traceparent := "00-" + transactionID + "-" + spanIDHex + "-01"
+			req.Header.Set("traceparent", traceparent)
+			log.Printf("Generated traceparent: %s", traceparent)
 		}
-		spanIDHex := hex.EncodeToString(spanID)
-
-		// Set the traceparent header.
-		traceparent := "00-" + transactionID + "-" + spanIDHex + "-01"
-		req.Header.Set("traceparent", traceparent)
-		log.Printf("Generated traceparent: %s", traceparent)
 	}
 	logRequestHeaders(req)
 	p.next.ServeHTTP(rw, req)
