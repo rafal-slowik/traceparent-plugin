@@ -40,11 +40,11 @@ _version = 00_
 
 _trace\_flags = 01_
 
-_trace\_flags = taken from the header specified and must be valid_
+_trace\_id = taken from the header specified and must be valid_
 
 _span\_id = generated 16 hexadecimal string_
 
-**{version}-{c}-{span\_id}-{trace\_flags}**
+**{version}-{trace\_id}-{span\_id}-{trace\_flags}**
 
 The edge cases:
 
